@@ -83,9 +83,6 @@ public class Game
     public static final Storyline story = new Storyline();
     public static final Blacksmith blacksmith = new Blacksmith();
 
-    //private Characters character;
-    //private Commands commands;
-
     private Actor monster;
     private final Player player;
     private final Item weapon;

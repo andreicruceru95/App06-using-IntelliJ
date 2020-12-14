@@ -18,7 +18,7 @@ public class Shop
 
     private static final Display DISPLAY = new Display();
 
-    String[] list = new String[]
+    final String[] list = new String[]
             {
                     Commands.BUY_POTION.getCommand() + "\t\t" + POTION_PRICE + " Gold",
                     Commands.BUY_ATTACK.getCommand() + ATTACK + "\t\t" + ATTACK_PRICE + " Gold",

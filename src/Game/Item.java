@@ -16,15 +16,15 @@ public class Item
     public static final String EVO_NAME_3 = "Epic";
     public static final String EVO_NAME_4 = "Legendary";
 
-    protected int bonusPerLevel;
+    protected final int bonusPerLevel;
 
-    protected String name;
+    protected final String name;
     protected String displayName;
 
     protected int displayLevel;
     protected int enchantLevel;
 
-    protected int baseStats;
+    protected final int baseStats;
     protected int enchantStats;
 
     protected int goldMultiplier = 1;
