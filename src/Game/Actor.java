@@ -10,24 +10,24 @@ import java.util.Random;
  */
 public abstract class Actor
 {
-    protected String name;
-    protected int level;
+    protected final String name;
+    protected final int level;
     protected int doubleHitChance = 0;
-    protected int initialDoubleHitChance = 0;
+    protected final int initialDoubleHitChance = 0;
     protected int evasionChance = 0;
-    protected int initialEvasionChance = 0;
-    protected int initialAttackForce = 100;
+    protected final int initialEvasionChance = 0;
+    protected final int initialAttackForce = 100;
     protected int attackForce = 100;
-    protected int initialShield = 70;
+    protected final int initialShield = 70;
     protected int shield = 70;
-    protected int initialMaxHealthPoints = 1000;
+    protected final int initialMaxHealthPoints = 1000;
     protected int maxHealthPoints = 1000;
     protected int currentHealthPoints = 1000;
 
-    protected int chance = 5;//%
-    protected int total = 100; //%
+    protected final int chance = 5;//%
+    protected final int total = 100; //%
 
-    protected Random random = new Random();
+    protected final Random random = new Random();
 
     public Actor(String name, int level)
     {
@@ -61,9 +61,8 @@ public abstract class Actor
     /**
      * receive an attack.
      * @param value is the value we receive.
-     * @return the value we received.
      */
-    protected int receiveDmg(int value)
+    protected void receiveDmg(int value)
     {
         int received = random.nextInt(chance - 1) + 1;
         int hitChance = random.nextInt(total - 1) + 1;
@@ -84,7 +83,6 @@ public abstract class Actor
             currentHealthPoints -= (value - shield);
         }
 
-        return received;
     }
 
     /**
