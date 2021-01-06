@@ -1,66 +1,67 @@
 package Game;
-
 import java.util.*;
 
 /**
- * The player's visual field on the map.
- * The rest of the map will be hidden.
+ * The game map.
+ * Creates the map edges and square values.
  *
- * @author Andrei Cruceru
- * @version 21112020
+ * @authors Andrei Cruceru
+ * @version 1.0.12
  */
 public class Map
 {
     private static final String SQUARE = "   ";
-
-    private static final String [][] MAP  = new String[47][35];
-
-    public static final Random rand = new Random();
-
+   
+    private String map[][]  = new String[47][35];
+        
+    private Random rand = new Random();
+    
     //private String description;
-    private final String name;
-
+    private String name;
+    
     /**
      * Constructor for the Map
      */
-    public Map(String name)//String description)
+     public Map(String name)
     {
-        // this.description = description;
+        //rand = 
+        //this.description = description;
         this.name = name;
-
+        
+        //this.map = map;
     }
-
+    
     /**
      * Set an object on the map
      */
     public void setOne(int row, int col,String object)
     {
-        MAP[row][col] = object;
+        map[row][col] = object;
     }
-
+    
     /**
-     * Print a map. Developers only.
+     * print a map
      */
     public void printMap()
     {
-        for (String[] strings : MAP)
+        for (int i = 0; i < map.length; i++)
         {
-            for (String string : strings)
+            for (int j = 0; j < map[i].length; j++)
             {
-                System.out.print(string);
+                System.out.print(map[i][j]);
             }
             System.out.println("");
         }
     }
-
+    
     /**
      * @return the current map
      */
-    public String[][] getMap()
+    public String[][] getmap()
     {
-        return MAP;
+        return map;
     }
-
+    
     /**
      * Get the map name
      */
@@ -68,75 +69,104 @@ public class Map
     {
         return name;
     }
-
+     
     /**
-     * Create a the walls and center of a map.
+     * Create the walls and center of a map.
      */
     public void createMap(String walls,int mapEdge)
     {
         //map walls and empty center
-        for (String[] strings : MAP)
+        for(int i = 0; i < map.length;i++)
         {
-            Arrays.fill(strings, SQUARE);
+            for(int j = 0; j < map[i].length; j++)
+            {
+                map[i][j] = SQUARE;
+            }
         }
         //top
         for(int i = 0; i < mapEdge; i++)
         {
-            Arrays.fill(MAP[i], walls);
+            for (int j = 0; j < map[i].length; j++)
+            {
+                map[i][j] = walls;
+            }
         }
         //bottom
-        for(int i = MAP.length - mapEdge; i < MAP.length; i++)
+        for(int i = map.length - mapEdge; i < map.length; i++)
         {
-            Arrays.fill(MAP[i], walls);
+            for (int j = 0; j < map[i].length; j++)
+            {
+                map[i][j] = walls;
+            }
         }
         //left
-        for(int i = 0; i < MAP.length; i++)
+        for(int i = 0; i < map.length; i++)
         {
             for (int j = 0; j < mapEdge; j++)
             {
-                MAP[i][j] = walls;
+                map[i][j] = walls;
             }
         }
         //right
-        for(int i = 0; i < MAP.length; i++)
+        for(int i = 0; i < map.length; i++)
         {
-            for (int j = MAP[i].length - mapEdge; j < MAP[i].length; j++)
+            for (int j = map[i].length - mapEdge; j < map[i].length; j++)
             {
-                MAP[i][j] = walls;
+                map[i][j] = walls;
             }
         }
-
+        
     }
-
     /**
-     * Re-spawn a monster in an empty square on the map
+     * Check if the map contains monsters.
+     * Tower only.
+     */
+    public boolean checkForMonsters()
+    {
+        for (int i = 0; i < map.length; i++)
+        {
+
+            for (int j = 0; j < map[i].length; j++)
+            {
+
+                if(map[i][j] != SQUARE)
+                    return false;
+
+            }
+
+        }
+        return true;
+    }
+        
+    /**
+     * add an amount of objects in an empty square on the map
      */
     public void addObjects(int columnMin, int columnMax, int rowMin, int rowMax, String object, int amount)
     {
-        int randomRow = 0;
+        int randomRow = 0;  
         int randomCol = 0;
-
+        
         for(int i = 0; i < amount; i++)
         {
-
-            while(!MAP[randomRow][randomCol].equals(SQUARE))
+            
+            while(map[randomRow][randomCol] != SQUARE)
             {
                 randomRow = rand.nextInt(rowMax - rowMin) + rowMin;
                 randomCol = rand.nextInt(columnMax - columnMin) + columnMin;
-
+            
             }
-
-            MAP[randomRow][randomCol] = object;
+            
+            map[randomRow][randomCol] = object;
         }
-
+        
     }
-
+        
     /**
      * @return a square value
      */
     public String getSquareValue(int row, int col)
     {
-        return MAP[row][col];
-
+        return map[row][col];
+        
     }
 }    

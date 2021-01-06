@@ -1,9 +1,9 @@
 package Game;
 /**
- * Write a description of class Item here.
+ * The Player item.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @authors Andrei Cruceru
+ * @version 1.0.12
  */
 public class Item
 {
@@ -15,42 +15,44 @@ public class Item
     public static final String EVO_NAME_2 = "Advanced";
     public static final String EVO_NAME_3 = "Epic";
     public static final String EVO_NAME_4 = "Legendary";
-
-    protected final int bonusPerLevel;
-
-    protected final String name;
+    
+    protected int bonusPerLevel;
+    protected String name;
     protected String displayName;
-
     protected int displayLevel;
     protected int enchantLevel;
-
-    protected final int baseStats;
-    protected int enchantStats;
-
-    protected int goldMultiplier = 1;
-    protected int goldRequired = 10 * goldMultiplier;
-
+    protected int baseStats;
+    protected int enchantStats;   
+    protected int goldMultiplier = 1;   
+    protected int goldRequired = 10 * goldMultiplier; 
+   
+    /**
+     * Initialising the item.
+     */
     public Item(String name, int baseStats, int enchantLevel, int bonusPerLevel)
     {
         this.bonusPerLevel = bonusPerLevel;
-
+        
         this.name = name;
         displayName = EVO_NAME_1 + " " + name;
-
+        
         this.enchantLevel = enchantLevel;
         displayLevel = enchantLevel;
-
+        
         this.baseStats = baseStats;
         enchantStats = baseStats * enchantLevel;
-
+        
         update();
     }
-
+    
+    /**
+     * @return the enchantment stats.
+     */
     protected int getStats()
     {
         return enchantStats;
     }
-
+    
     /**
      * Increment an item level.
      * Every 9 levels the name changes
@@ -61,17 +63,17 @@ public class Item
         {
             enchantLevel ++;
             displayLevel ++;
-
+            
             enchantStats = (baseStats + ( enchantLevel * bonusPerLevel ));
-
+            
             goldMultiplier ++;
-
+            
             update();
-        }
+        }   
         else
             System.out.println("\t\tMaximum level reached");
     }
-
+    
     /**
      * Update the item's name.
      */
@@ -80,31 +82,39 @@ public class Item
         if(enchantLevel >= EVO_LEVEL_1)
         {
             displayLevel = enchantLevel % EVO_LEVEL_1;
-
+            
             displayName = EVO_NAME_2 + " " + name;
-
+            
             return true;
         }
         else if(enchantLevel >= EVO_LEVEL_2)
         {
             displayLevel = enchantLevel % EVO_LEVEL_1;
-
+            
             displayName = EVO_NAME_3 + " " + name;
-
+            
             return true;
         }
         else if(enchantLevel >= EVO_LEVEL_3)
         {
             displayLevel = enchantLevel % EVO_LEVEL_1;
-
+            
             displayName = EVO_NAME_4 + " " + name;
-
+            
             return true;
         }
         else
             return false;
     }
-
+        
+    /**
+     * @return the amount of gold required.
+     */
+    public int getGoldRequired()
+    {
+        return goldRequired;
+    }
+    
     /**
      * @return an item's name.
      */
